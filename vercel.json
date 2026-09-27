@@ -1,0 +1,29 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "angular",
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/kutahya/temizlik", "destination": "/kutahya/temizlikci", "statusCode": 301 },
+    { "source": "/kutahya/temizlik-sirketi", "destination": "/kutahya/temizlikci", "statusCode": 301 },
+    { "source": "/kutahya/araba-kiralama", "destination": "/kutahya/arac-kiralama", "statusCode": 301 },
+    { "source": "/kutahya/oto-kiralama", "destination": "/kutahya/arac-kiralama", "statusCode": 301 }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "geolocation=(self), camera=(), microphone=()" },
+        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/randevu/temizlikci/:slug", "destination": "/api/contact?kind=cleaning-staff&slug=:slug" },
+    { "source": "/randevu/temizlik-firmasi/:slug", "destination": "/api/contact?kind=cleaning-company&slug=:slug" },
+    { "source": "/rezervasyon/firma/:slug", "destination": "/api/contact?kind=rental-company&slug=:slug" },
+    { "source": "/rezervasyon/arac/:slug", "destination": "/api/contact?kind=rental-vehicle&slug=:slug" },
+    { "source": "/:path*", "destination": "/api/not-found" }
+  ]
+}

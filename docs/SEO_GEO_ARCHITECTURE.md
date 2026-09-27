@@ -16,8 +16,8 @@ Cross-silo links live in global navigation and the home page. Entity pages link 
 
 ## Rendering
 
-- Prerender: home, the two canonical vertical landings, and legal/information pages.
-- Request SSR: entity routes and catch-all routes, preserving real HTTP 404 behavior for unknown slugs.
+- Prerender: home, the two canonical vertical landings, every published/indexable entity, and legal/information pages.
+- Request SSR: available on the Node server for fallback entity handling. Vercel serves generated entity HTML, uses serverless contact redirects and returns a function-backed HTTP 404 for unknown paths.
 - Hydration: official Angular client hydration.
 - Critical text, H1, links, metadata and JSON-LD are in SSR/prerendered HTML.
 

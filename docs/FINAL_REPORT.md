@@ -8,7 +8,7 @@ Date: **2026-09-27**
 4. **SERP result:** cleaning mixes profile directories, price/quote marketplaces and provider sites; rental is dominated by live-inventory aggregators plus local firms. Entity depth, provenance and freshness are the opportunity. Local Pack requires manual localized verification.
 5. **Routes:** `/`; `/kutahya/temizlikci`; `/temizlik-firmasi/:slug`; `/temizlikci/:slug`; `/kutahya/arac-kiralama`; `/arac-kiralama-firmasi/:slug`; `/kiralik-arac/:slug`; legal/information pages. Thin intent pages are absent.
 6. **Angular:** core, CLI, SSR and build **22.2.0**.
-7. **SSR:** official hybrid rendering. Stable overview/legal pages prerender; dynamic entities and catch-all render on the server. Official hydration is enabled. Unknown entities return HTTP 404.
+7. **Rendering:** official Angular hybrid rendering. Overview/legal pages and every published entity are prerendered with hydration. The Node build retains request SSR; Vercel serves generated entity HTML and uses functions for contacts and real HTTP 404 responses.
 8. **Cleaning:** typed service→company→staff hierarchy, repository abstraction, verification, service/area relationships, company/staff pages and server-only conversion design.
 9. **Rental:** typed company→vehicle hierarchy, availability/pricing models, fleet/spec pages and rental-aware structured data.
 10. **Add company:** edit `marketplace.data.json` using `DATA_OPERATIONS.md`, then pass validation.
@@ -23,8 +23,8 @@ Date: **2026-09-27**
 19. **Sitemap:** contains the static pages and all three published, indexable inventory profiles. The generator keeps only canonical production URLs and rewrites their origin when `SITE_ORIGIN` is configured.
 20. **Redirects:** server HTTP 301 for cleaning and rental keyword aliases; direct test confirmed `/kutahya/araba-kiralama → /kutahya/arac-kiralama`.
 21. **Tests:** data validator, unit tests and SEO/SSR checks cover metadata, H1, canonical, JSON-LD, internal links, redirects, 404s, robots and sitemap.
-22. **Build:** production build passed; 7 routes prerendered. Browser initial bundle: 316.23 kB raw, 85.41 kB estimated transfer.
-23. **Deployment:** `npm ci`, `npm run build`, then `PORT=4000 node dist/firm-search/server/server.mjs` behind HTTPS. Replace origin/allowed hosts and generate sitemap first.
+22. **Build:** production build passed; 10 routes prerendered. Browser initial bundle: 316.23 kB raw, 85.52 kB estimated transfer.
+23. **Deployment:** Vercel deploys from GitHub `main`, serves prerendered routes and runs contact/404 functions defined by `vercel.json`. The generated Node server remains available for Docker/VM hosting.
 24. **Search Console:** DNS Domain verification, submit sitemap, inspect representative routes/rendered HTML, then monitor indexing, performance and Core Web Vitals.
 25. **Bing:** verify/import property, submit sitemap, configure change-only IndexNow, inspect routes and monitor Search Performance + AI Performance.
 26. **Still requires real-world validation:** final brand/domain, production host allowlist, legal owner/privacy contacts, real provider authorization and NAP, real photos/reviews/prices/availability, Local Pack and Business Profile review, provider-owned WhatsApp numbers, deployment/CDN bot access, Rich Results/Schema validation on real entities, field CWV and actual search/AI citations.

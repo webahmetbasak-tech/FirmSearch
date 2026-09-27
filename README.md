@@ -14,7 +14,7 @@ npm start
 npm run seo:check
 ```
 
-`npm start` serves the completed production build on `PORT` (default 4000). `npm run seo:check` starts an isolated built server and verifies response HTML, metadata, canonicals, JSON-LD, redirects, 404s, robots and sitemap.
+`npm start` serves the completed production build on `PORT` (default 4000) for Node hosting. Vercel serves the generated pages and the contact/404 functions configured in `vercel.json`. `npm run seo:check` starts an isolated built server and verifies response HTML, metadata, canonicals, JSON-LD, redirects, 404s, robots and sitemap.
 
 ## Architecture
 
@@ -35,9 +35,9 @@ Before deployment:
 2. Confirm the published entities and private contact permissions are current.
 3. Generate the sitemap after adding, changing or removing indexable inventory.
 4. Run the validation, unit, production build, SEO/SSR and release checks.
-5. Deploy `dist/firm-search` to a Node 20+ runtime and run `node server/server.mjs` behind HTTPS/reverse proxy.
+5. Push `main` to deploy on Vercel; published profile routes are generated during the build and private contact redirects run as Vercel Functions.
 
-Example Docker/VM process command:
+Alternative Docker/VM process command:
 
 ```bash
 PORT=4000 node dist/firm-search/server/server.mjs

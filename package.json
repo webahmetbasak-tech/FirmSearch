@@ -13,6 +13,7 @@
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
     "seo:check": "node scripts/seo-check.mjs",
     "release:check": "node scripts/release-check.mjs",
+    "vercel:check": "tsc --ignoreConfig --noEmit --target ES2022 --module ESNext --moduleResolution Bundler --skipLibCheck api/contact.ts api/not-found.ts",
     "indexnow:submit": "node scripts/indexnow-submit.mjs"
   },
   "private": true,
