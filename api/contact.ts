@@ -5,6 +5,7 @@ import {
   RENTAL_COMPANY_CONTACTS,
   RENTAL_VEHICLE_CONTACTS,
 } from '../src/server/private/contact.config';
+import type { IncomingMessage, ServerResponse } from 'node:http';
 
 type ContactKind = 'cleaning-company' | 'cleaning-staff' | 'rental-company' | 'rental-vehicle';
 
@@ -22,21 +23,22 @@ const messages: Readonly<Record<ContactKind, (name: string) => string>> = {
   'rental-vehicle': (name) => `Merhaba,\n\nKütahya Yerel üzerinden ${name} hakkında bilgi ve rezervasyon talebi oluşturmak istiyorum.`,
 };
 
-export default {
-  fetch(request: Request): Response {
-    const url = new URL(request.url);
-    const kind = url.searchParams.get('kind') as ContactKind | null;
-    const slug = url.searchParams.get('slug');
-    const contact = kind && slug && contacts[kind]?.[slug];
+export default function handler(request: IncomingMessage, response: ServerResponse): void {
+  const url = new URL(request.url ?? '/', `https://${request.headers.host ?? 'kutahyatemizlik.vercel.app'}`);
+  const kind = url.searchParams.get('kind') as ContactKind | null;
+  const slug = url.searchParams.get('slug');
+  const contact = kind && slug && contacts[kind]?.[slug];
 
-    if (!kind || !slug || !contact || !/^90\d{10}$/.test(contact.whatsapp)) {
-      return new Response('İletişim kaydı bulunamadı.', {
-        status: 404,
-        headers: { 'Cache-Control': 'no-store', 'Content-Type': 'text/plain; charset=utf-8' },
-      });
-    }
+  response.setHeader('Cache-Control', 'no-store');
+  if (!kind || !slug || !contact || !/^90\d{10}$/.test(contact.whatsapp)) {
+    response.statusCode = 404;
+    response.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    response.end('İletişim kaydı bulunamadı.');
+    return;
+  }
 
-    const destination = `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(messages[kind](contact.displayName))}`;
-    return new Response(null, { status: 302, headers: { 'Cache-Control': 'no-store', Location: destination } });
-  },
-};
+  const destination = `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(messages[kind](contact.displayName))}`;
+  response.statusCode = 302;
+  response.setHeader('Location', destination);
+  response.end();
+}
