@@ -40,4 +40,4 @@ Disallow: /randevu/
 Disallow: /rezervasyon/
 Allow: /
 
-Sitemap: https://kutahya-yerel.example/sitemap.xml
+Sitemap: https://kutahyatemizlik.vercel.app/sitemap.xml

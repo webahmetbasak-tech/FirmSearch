@@ -31,10 +31,10 @@ Current inventory contains two cleaning profiles and one car-rental provider pro
 
 Before deployment:
 
-1. Replace `https://kutahya-yerel.example` in `src/app/core/config/site.config.ts` and `public/robots.txt`.
-2. Add the final hostname to `security.allowedHosts` in `angular.json`.
-3. Add real entities and private contacts; run every validation command.
-4. Generate the sitemap with the verified origin.
+1. Production origin: `https://kutahyatemizlik.vercel.app`.
+2. Confirm the published entities and private contact permissions are current.
+3. Generate the sitemap after adding, changing or removing indexable inventory.
+4. Run the validation, unit, production build, SEO/SSR and release checks.
 5. Deploy `dist/firm-search` to a Node 20+ runtime and run `node server/server.mjs` behind HTTPS/reverse proxy.
 
 Example Docker/VM process command:

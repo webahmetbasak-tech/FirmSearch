@@ -33,7 +33,7 @@
             "server": "src/main.server.ts",
             "outputMode": "server",
             "security": {
-              "allowedHosts": ["127.0.0.1", "localhost"]
+              "allowedHosts": ["127.0.0.1", "localhost", "kutahyatemizlik.vercel.app"]
             },
             "ssr": {
               "entry": "src/server.ts"
