@@ -2,7 +2,7 @@ import { spawn } from 'node:child_process';
 import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const port = process.env['SEO_PORT'] ?? '4173';
-const externalBase = process.env['SEO_BASE_URL'];
+const externalBase = process.argv[2] ?? process.env['SEO_BASE_URL'];
 const base = externalBase ?? `http://127.0.0.1:${port}`;
 let server;
 const failures = [];

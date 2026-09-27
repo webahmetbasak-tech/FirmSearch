@@ -22,19 +22,21 @@ const messages: Readonly<Record<ContactKind, (name: string) => string>> = {
   'rental-vehicle': (name) => `Merhaba,\n\nKütahya Yerel üzerinden ${name} hakkında bilgi ve rezervasyon talebi oluşturmak istiyorum.`,
 };
 
-export function GET(request: Request): Response {
-  const url = new URL(request.url);
-  const kind = url.searchParams.get('kind') as ContactKind | null;
-  const slug = url.searchParams.get('slug');
-  const contact = kind && slug && contacts[kind]?.[slug];
+export default {
+  fetch(request: Request): Response {
+    const url = new URL(request.url);
+    const kind = url.searchParams.get('kind') as ContactKind | null;
+    const slug = url.searchParams.get('slug');
+    const contact = kind && slug && contacts[kind]?.[slug];
 
-  if (!kind || !slug || !contact || !/^90\d{10}$/.test(contact.whatsapp)) {
-    return new Response('İletişim kaydı bulunamadı.', {
-      status: 404,
-      headers: { 'Cache-Control': 'no-store', 'Content-Type': 'text/plain; charset=utf-8' },
-    });
-  }
+    if (!kind || !slug || !contact || !/^90\d{10}$/.test(contact.whatsapp)) {
+      return new Response('İletişim kaydı bulunamadı.', {
+        status: 404,
+        headers: { 'Cache-Control': 'no-store', 'Content-Type': 'text/plain; charset=utf-8' },
+      });
+    }
 
-  const destination = `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(messages[kind](contact.displayName))}`;
-  return new Response(null, { status: 302, headers: { 'Cache-Control': 'no-store', Location: destination } });
-}
+    const destination = `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(messages[kind](contact.displayName))}`;
+    return new Response(null, { status: 302, headers: { 'Cache-Control': 'no-store', Location: destination } });
+  },
+};
