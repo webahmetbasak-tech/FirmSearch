@@ -1,33 +1,24 @@
-import {
-  CLEANING_COMPANY_CONTACTS,
-  CLEANING_STAFF_CONTACTS,
-  PrivateContact,
-  RENTAL_COMPANY_CONTACTS,
-  RENTAL_VEHICLE_CONTACTS,
-} from '../src/server/private/contact.config';
-import type { IncomingMessage, ServerResponse } from 'node:http';
+const contactData = require('../src/server/private/contact.data.json');
 
-type ContactKind = 'cleaning-company' | 'cleaning-staff' | 'rental-company' | 'rental-vehicle';
-
-const contacts: Readonly<Record<ContactKind, Readonly<Record<string, PrivateContact>>>> = {
-  'cleaning-company': CLEANING_COMPANY_CONTACTS,
-  'cleaning-staff': CLEANING_STAFF_CONTACTS,
-  'rental-company': RENTAL_COMPANY_CONTACTS,
-  'rental-vehicle': RENTAL_VEHICLE_CONTACTS,
+const contacts = {
+  'cleaning-company': contactData.cleaningCompanies,
+  'cleaning-staff': contactData.cleaningStaff,
+  'rental-company': contactData.rentalCompanies,
+  'rental-vehicle': contactData.rentalVehicles,
 };
 
-const messages: Readonly<Record<ContactKind, (name: string) => string>> = {
+const messages = {
   'cleaning-company': (name) => `Merhaba,\n\nKütahya Yerel üzerinden ${name} hizmetleri hakkında bilgi almak istiyorum.`,
   'cleaning-staff': (name) => `Merhaba,\n\nKütahya Yerel üzerinden ${name} profili hakkında bilgi almak ve randevu oluşturmak istiyorum.`,
   'rental-company': (name) => `Merhaba,\n\nKütahya Yerel üzerinden ${name} hakkında bilgi almak istiyorum.`,
   'rental-vehicle': (name) => `Merhaba,\n\nKütahya Yerel üzerinden ${name} hakkında bilgi ve rezervasyon talebi oluşturmak istiyorum.`,
 };
 
-export default function handler(request: IncomingMessage, response: ServerResponse): void {
-  const url = new URL(request.url ?? '/', `https://${request.headers.host ?? 'kutahyatemizlik.vercel.app'}`);
-  const kind = url.searchParams.get('kind') as ContactKind | null;
+module.exports = function handler(request, response) {
+  const url = new URL(request.url || '/', `https://${request.headers.host || 'kutahyatemizlik.vercel.app'}`);
+  const kind = url.searchParams.get('kind');
   const slug = url.searchParams.get('slug');
-  const contact = kind && slug && contacts[kind]?.[slug];
+  const contact = kind && slug && contacts[kind] && contacts[kind][slug];
 
   response.setHeader('Cache-Control', 'no-store');
   if (!kind || !slug || !contact || !/^90\d{10}$/.test(contact.whatsapp)) {
@@ -41,4 +32,4 @@ export default function handler(request: IncomingMessage, response: ServerRespon
   response.statusCode = 302;
   response.setHeader('Location', destination);
   response.end();
-}
+};

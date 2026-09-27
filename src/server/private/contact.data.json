@@ -1,0 +1,11 @@
+{
+  "cleaningStaff": {
+    "ayse-yilmaz": { "whatsapp": "905348303443", "displayName": "Ayşe Yılmaz" },
+    "fatma-duran": { "whatsapp": "905348303443", "displayName": "Fatma Duran" }
+  },
+  "cleaningCompanies": {},
+  "rentalCompanies": {
+    "ahmet-basak": { "whatsapp": "905348303443", "displayName": "Ahmet BAŞAK" }
+  },
+  "rentalVehicles": {}
+}

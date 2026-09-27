@@ -3,7 +3,8 @@ import { resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..');
 const data = JSON.parse(await readFile(resolve(root, 'src/app/data/marketplace.data.json'), 'utf8'));
-const contactsSource = await readFile(resolve(root, 'src/server/private/contact.config.ts'), 'utf8');
+const contacts = JSON.parse(await readFile(resolve(root, 'src/server/private/contact.data.json'), 'utf8'));
+const contactSlugs = new Set(Object.values(contacts).flatMap((group) => Object.keys(group)));
 const errors = [];
 const entityGroups = ['cleaningCompanies', 'cleaningStaff', 'rentalCompanies', 'rentalVehicles'];
 const allEntities = entityGroups.flatMap((group) => data[group].map((item) => ({ ...item, group })));
@@ -34,7 +35,7 @@ for (const item of allEntities) {
   if (item.isDemo) assert(!item.indexable, `Demo entity cannot be indexable: ${item.id}`);
   if (item.indexable) { assert(item.published, `Indexable entity must be published: ${item.id}`); assert(!item.isDemo, `Indexable entity cannot be demo: ${item.id}`); }
   for (const areaId of item.serviceAreaIds ?? []) assert(areaIds.has(areaId), `Unknown area ${areaId} on ${item.id}`);
-  if (item.whatsappEnabled) assert(contactsSource.includes(`'${item.slug}'`) || contactsSource.includes(`"${item.slug}"`), `Missing private contact mapping: ${item.slug}`);
+  if (item.whatsappEnabled) assert(contactSlugs.has(item.slug), `Missing private contact mapping: ${item.slug}`);
 }
 for (const company of data.cleaningCompanies) { for (const id of company.serviceIds) assert(serviceIds.has(id), `Unknown service ${id} on ${company.id}`); for (const id of company.staffIds) assert(staffIds.has(id), `Orphan staff reference ${id}`); }
 for (const person of data.cleaningStaff) { assert(cleaningCompanyIds.has(person.companyId), `Missing cleaning company for ${person.id}`); for (const id of person.serviceIds) assert(serviceIds.has(id), `Unknown service ${id} on ${person.id}`); }

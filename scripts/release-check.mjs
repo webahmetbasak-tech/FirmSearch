@@ -10,7 +10,7 @@ const [siteSource, angularSource, robots, sitemap, dataSource, serverRoutesSourc
   readFile(resolve(root, 'src/app/data/marketplace.data.json'), 'utf8'),
   readFile(resolve(root, 'src/app/app.routes.server.ts'), 'utf8'),
   readFile(resolve(root, 'vercel.json'), 'utf8'),
-  readFile(resolve(root, 'api/contact.ts'), 'utf8'),
+  readFile(resolve(root, 'api/contact.js'), 'utf8'),
 ]);
 const errors = [];
 const origin = siteSource.match(/origin:\s*'([^']+)'/)?.[1];
@@ -41,6 +41,6 @@ for (const source of ['/randevu/temizlikci/:slug','/randevu/temizlik-firmasi/:sl
   if (!rewrites.some((rewrite) => rewrite.source === source && rewrite.destination.startsWith('/api/contact'))) errors.push(`Missing Vercel contact rewrite: ${source}.`);
 }
 if (!rewrites.some((rewrite) => rewrite.source === '/:path*' && rewrite.destination === '/api/not-found')) errors.push('Missing Vercel 404 fallback.');
-if (!contactFunctionSource.includes("from '../src/server/private/contact.config'")) errors.push('Vercel contact function is not using the private contact configuration.');
+if (!contactFunctionSource.includes("require('../src/server/private/contact.data.json')")) errors.push('Vercel contact function is not using the private contact configuration.');
 if (errors.length) { console.error(`Release check failed (${errors.length}):\n- ${errors.join('\n- ')}`); process.exit(1); }
 console.log(`Release check passed for ${origin}: ${published.length} published/indexable inventory records, 10 sitemap URLs and Vercel routing.`);

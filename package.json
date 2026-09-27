@@ -14,7 +14,7 @@
     "seo:check": "node scripts/seo-check.mjs",
     "seo:check:production": "node scripts/seo-check.mjs https://kutahyatemizlik.vercel.app",
     "release:check": "node scripts/release-check.mjs",
-    "vercel:check": "tsc --ignoreConfig --noEmit --target ES2022 --module ESNext --moduleResolution Bundler --types node --skipLibCheck api/contact.ts api/not-found.ts",
+    "vercel:check": "node scripts/vercel-check.mjs",
     "indexnow:submit": "node scripts/indexnow-submit.mjs"
   },
   "private": true,
