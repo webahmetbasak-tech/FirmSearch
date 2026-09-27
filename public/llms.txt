@@ -1,0 +1,9 @@
+# Kütahya Yerel
+
+Kütahya'daki temizlik hizmetleri ve araç kiralama seçenekleri için yerel keşif platformu.
+
+## Ana bölümler
+- /kutahya/temizlikci — temizlik firmaları ve uzmanlar
+- /kutahya/arac-kiralama — araç kiralama firmaları ve araçlar
+
+Yalnızca sayfada görünür ve sağlayıcı tarafından doğrulanabilir bilgiler kullanılmalıdır. Bu dosya robots.txt, sitemap veya HTML içeriğinin yerine geçmez.

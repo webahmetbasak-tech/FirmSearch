@@ -1,0 +1,35 @@
+{
+  "areas": [{ "id": "kutahya-merkez", "name": "Kütahya Merkez" }],
+  "cleaningServices": [
+    { "id": "ev-temizligi", "name": "Ev temizliği", "description": "Yaşam alanları için kapsamı sağlayıcıyla netleştirilen temizlik hizmeti." },
+    { "id": "ofis-temizligi", "name": "Ofis temizliği", "description": "İş yerleri için ihtiyaca göre planlanan temizlik hizmeti." }
+  ],
+  "cleaningCompanies": [{
+    "id": "independent-cleaning-providers", "slug": "bireysel-hizmet-verenler", "name": "Bireysel Hizmet Verenler",
+    "description": "Bireysel temizlik hizmeti veren profiller için platform içi kayıt grubu.",
+    "verification": { "status": "UNVERIFIED" }, "serviceAreaIds": ["kutahya-merkez"], "serviceIds": ["ev-temizligi", "ofis-temizligi"],
+    "staffIds": ["ayse-yilmaz", "fatma-duran"], "whatsappEnabled": false, "published": false, "indexable": false, "isDemo": false, "updatedAt": "2026-09-27"
+  }],
+  "cleaningStaff": [
+    {
+      "id": "ayse-yilmaz", "slug": "ayse-yilmaz", "companyId": "independent-cleaning-providers", "name": "Ayşe Yılmaz",
+      "expertise": "Ev temizliği", "biography": "Kütahya Merkez'de ev temizliği hizmeti hakkında bilgi almak ve randevu oluşturmak için iletişime geçebilirsiniz.",
+      "serviceIds": ["ev-temizligi"], "serviceAreaIds": ["kutahya-merkez"], "verification": { "status": "PENDING" }, "whatsappEnabled": true,
+      "published": true, "indexable": true, "isDemo": false, "updatedAt": "2026-09-27"
+    },
+    {
+      "id": "fatma-duran", "slug": "fatma-duran", "companyId": "independent-cleaning-providers", "name": "Fatma Duran",
+      "expertise": "Ev ve ofis temizliği", "biography": "Kütahya Merkez'de ev ve ofis temizliği hizmetleri hakkında bilgi almak ve randevu oluşturmak için iletişime geçebilirsiniz.",
+      "serviceIds": ["ev-temizligi", "ofis-temizligi"], "serviceAreaIds": ["kutahya-merkez"], "verification": { "status": "PENDING" }, "whatsappEnabled": true,
+      "published": true, "indexable": true, "isDemo": false, "updatedAt": "2026-09-27"
+    }
+  ],
+  "rentalCompanies": [{
+    "id": "ahmet-basak", "slug": "ahmet-basak", "name": "Ahmet BAŞAK",
+    "description": "Kütahya Merkez'de araç kiralama hizmeti hakkında bilgi ve rezervasyon talebi için iletişime geçebilirsiniz.",
+    "verification": { "status": "PENDING" }, "serviceAreaIds": ["kutahya-merkez"], "vehicleIds": [],
+    "airportDelivery": false, "corporateRental": false, "whatsappEnabled": true, "published": true, "indexable": true, "isDemo": false, "updatedAt": "2026-09-27"
+  }],
+  "rentalVehicles": [],
+  "reviews": []
+}

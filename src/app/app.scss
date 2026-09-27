@@ -1,0 +1,13 @@
+:host { display: block; min-height: 100vh; }
+.skip-link { position: fixed; left: 1rem; top: -5rem; z-index: 100; padding: .8rem 1rem; color: #fff; background: #17231d; border-radius: .6rem; }
+.skip-link:focus { top: 1rem; }
+.site-header, .site-footer { width: min(1180px, calc(100% - 2rem)); margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+.site-header { min-height: 76px; }
+.brand { display: inline-flex; align-items: center; gap: .7rem; color: #17231d; font-weight: 800; text-decoration: none; }
+.brand-mark { display: grid; place-items: center; width: 2.45rem; aspect-ratio: 1; border-radius: .8rem; color: #fff; background: #225b3f; font-size: .78rem; }
+nav { display: flex; flex-wrap: wrap; gap: 1rem; }
+nav a { color: #3d4942; text-decoration: none; font-weight: 650; }
+nav a:hover, nav a.active { color: #17613e; }
+.site-footer { align-items: flex-start; padding-block: 3rem; border-top: 1px solid #dce3de; }
+.site-footer p { color: #59655e; max-width: 40rem; }
+@media (max-width: 720px) { .site-header { align-items: flex-start; padding-block: 1rem; } .site-header nav { justify-content: flex-end; font-size: .9rem; gap: .7rem; } .site-footer { flex-direction: column; } }

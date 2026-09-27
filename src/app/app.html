@@ -1,0 +1,24 @@
+<a class="skip-link" href="#main-content">Ana içeriğe geç</a>
+<header class="site-header">
+  <a class="brand" routerLink="/" aria-label="Kütahya Yerel ana sayfa">
+    <span class="brand-mark" aria-hidden="true">KY</span>
+    <span>{{ brandName }}</span>
+  </a>
+  <nav aria-label="Ana navigasyon">
+    <a routerLink="/kutahya/temizlikci" routerLinkActive="active">Temizlikçi</a>
+    <a routerLink="/kutahya/arac-kiralama" routerLinkActive="active">Araç kiralama</a>
+    <a routerLink="/hakkimizda" routerLinkActive="active">Hakkımızda</a>
+  </nav>
+</header>
+<main id="main-content"><router-outlet /></main>
+<footer class="site-footer">
+  <div>
+    <strong>{{ brandName }}</strong>
+    <p>Kütahya'daki yerel hizmetleri açık, doğrulanabilir bilgilerle keşfetmek için.</p>
+  </div>
+  <nav aria-label="Alt bilgi navigasyonu">
+    <a routerLink="/iletisim">İletişim</a>
+    <a routerLink="/gizlilik">Gizlilik</a>
+    <a routerLink="/kullanim-kosullari">Kullanım koşulları</a>
+  </nav>
+</footer>
